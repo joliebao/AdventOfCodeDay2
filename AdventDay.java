@@ -29,6 +29,10 @@ public class AdventDay{
                 space = line.indexOf(" ");
                 String curr = line.substring(0, space);
 
+                if ((Math.abs(Integer.parseInt(prev) - Integer.parseInt(curr)) > 3){
+                    safe = false;
+                }
+
                 if (Integer.parseInt(prev) > Integer.parseInt(curr)){    // if greater than
                     if (incr){
                         safe = false;
@@ -47,7 +51,6 @@ public class AdventDay{
                 passes ++;
             }
         }
-
         return passes; //number of lines that pass
     }
 }
