@@ -3,18 +3,21 @@ import java.util.List;
 
 public class AdventDay{
     private List <String> list = new ArrayList<String>();
-    private boolean incr = false;
-    private boolean decr = false;
+    private boolean incr;
+    private boolean decr;
     private boolean safe;
     private int passes;
+    private int counter;
 
     public AdventDay(ArrayList<String> l){
         list = l;
         safe = true;
+        incr = false;
+        decr = false;
+        counter = 0;
     }
 
     public int sorter(){
-        int counter = 0;
         for (String line : list) {
             incr = false;
             decr = false;
