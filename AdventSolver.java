@@ -11,7 +11,6 @@ public class AdventSolver {
 
     }
 
-
     public static ArrayList<String> getFileData(String fileName) {
         ArrayList<String> fileData = new ArrayList<String>();
         try {
@@ -22,6 +21,8 @@ public class AdventSolver {
                 if (!line.equals(""))
                     fileData.add(line);
             }
+            AdventDay a = new AdventDay(fileData);
+            System.out.println(a.sorter());
             return fileData;
         } catch (FileNotFoundException e) {
             return fileData;
