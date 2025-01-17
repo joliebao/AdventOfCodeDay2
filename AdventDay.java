@@ -1,16 +1,15 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 public class AdventDay{
-    private List <String> list = new ArrayList<String>();
+    private String[] list = new String[1000];
     private boolean incr;
     private boolean decr;
     private boolean safe;
     private int passes;
     private int counter;
 
-    public AdventDay(ArrayList<String> l){
-        list = l;
+    public AdventDay(String[] array){
+        list = array;
         safe = true;
         incr = false;
         decr = false;
@@ -29,7 +28,7 @@ public class AdventDay{
                 space = line.indexOf(" ");
                 String curr = line.substring(0, space);
 
-                if ((Math.abs(Integer.parseInt(prev) - Integer.parseInt(curr)) > 3){
+                if ((Math.abs(Integer.parseInt(prev) - Integer.parseInt(curr)) > 3)){
                     safe = false;
                 }
 
