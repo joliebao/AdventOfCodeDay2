@@ -21,11 +21,15 @@ public class AdventDay{
             incr = false;
             decr = false;
             safe = true;
-            while ((line.indexOf(" ") != -1) && (safe)) {
-                int space = line.indexOf(" ");
-                String prev = line.substring(0, space);
-                line = line.substring(space);
+            int space = 0;
+            while ((line.contains(" ")) && safe) {
                 space = line.indexOf(" ");
+                String prev = line.substring(0, space);
+                line = line.substring(space+1);
+                space = line.indexOf(" ");
+                if (space == -1){
+                    space = 1;
+                }
                 String curr = line.substring(0, space);
 
                 if ((Math.abs(Integer.parseInt(prev) - Integer.parseInt(curr)) > 3)){
@@ -49,6 +53,8 @@ public class AdventDay{
             if (safe){
                 passes ++;
             }
+
+            counter++;
         }
         return passes; //number of lines that pass
     }
