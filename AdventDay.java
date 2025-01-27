@@ -27,12 +27,17 @@ public class AdventDay{
                 String prev = line.substring(0, space);
                 line = line.substring(space+1);
                 space = line.indexOf(" ");
-                if (space == -1){
+                if ((space == -1) && line.length() == 1){
                     space = 1;
+                } else if (line.length() == 2){
+                    space = 2;
                 }
                 String curr = line.substring(0, space);
 
+
                 if ((Math.abs(Integer.parseInt(prev) - Integer.parseInt(curr)) > 3)){
+                    safe = false;
+                } else if ((Math.abs(Integer.parseInt(prev) - Integer.parseInt(curr)) < 1)){
                     safe = false;
                 }
 
