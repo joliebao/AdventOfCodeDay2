@@ -14,20 +14,17 @@ public class AdventSolver {
     }
 
     public static String[] getFileData(String fileName) {
-        String[] fileData = new String[1000];
         try {
             File f = new File(fileName);
             Scanner s = new Scanner(f);
-            int i = 0;
+            String lines = "";
             while (s.hasNextLine()) {
-                String line = s.nextLine();
-                if (!line.equals("")) {
-                    fileData[i] = line;
-                }
-                i++;
+                lines += s.nextLine() + " ";
             }
+            String[] fileData = lines.split(" ");
             return fileData;
         } catch (FileNotFoundException e) {
+            String[] fileData = {"Not working..."};
             return fileData;
         }
     }
