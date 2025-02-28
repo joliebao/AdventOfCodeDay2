@@ -10,7 +10,8 @@ public class AdventSolver {
 
         System.out.println(Arrays.toString(fileData));
         AdventDay a = new AdventDay(fileData);
-        System.out.println(a.sorter());
+        System.out.println(a.part1());
+        System.out.println(a.part2());
     }
 
     public static String[] getFileData(String fileName) {
