@@ -5,10 +5,10 @@ import java.util.Scanner;
 
 public class AdventSolver {
     public static void main(String[] args) {
-
-        String[] fileData = getFileData("/Users/joliebao/IdeaProjects/AdventOfCodeDay2/InputFile");
+        String[] fileData = getFileData("InputFile");
         // you now have a list of Strings from the file "InputFile"
 
+        System.out.println(Arrays.toString(fileData));
         AdventDay a = new AdventDay(fileData);
         System.out.println(a.sorter());
     }
@@ -19,10 +19,9 @@ public class AdventSolver {
             Scanner s = new Scanner(f);
             String lines = "";
             while (s.hasNextLine()) {
-                lines += s.nextLine() + " ";
+                lines += s.nextLine() + " , ";
             }
-            String[] fileData = lines.split(" ");
-            return fileData;
+            return lines.split(" , ");
         } catch (FileNotFoundException e) {
             String[] fileData = {"Not working..."};
             return fileData;

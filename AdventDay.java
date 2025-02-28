@@ -1,6 +1,4 @@
-import java.util.Arrays;
-
-public class AdventDay{
+public class AdventDay {
     private String[] list = new String[1000];
     private boolean incr;
     private boolean decr;
@@ -8,7 +6,7 @@ public class AdventDay{
     private int passes;
     private int counter;
 
-    public AdventDay(String[] array){
+    public AdventDay(String[] array) {
         list = array;
         safe = true;
         incr = false;
@@ -16,51 +14,44 @@ public class AdventDay{
         counter = 0;
     }
 
-    public int sorter(){
+    public int sorter() {
         for (String line : list) {
             incr = false;
             decr = false;
             safe = true;
             int space = 0;
-            while ((line.contains(" ")) && safe) {
-                space = line.indexOf(" ");
-                String prev = line.substring(0, space);
-                line = line.substring(space+1);
-                space = line.indexOf(" ");
-                if ((space == -1) && line.length() == 1){
-                    space = 1;
-                } else if (line.length() == 2){
-                    space = 2;
-                }
-                String curr = line.substring(0, space);
 
+            String[] lineElements = line.split(" ");
 
-                if ((Math.abs(Integer.parseInt(prev) - Integer.parseInt(curr)) > 3)){
-                    safe = false;
-                } else if ((Math.abs(Integer.parseInt(prev) - Integer.parseInt(curr)) < 1)){
-                    safe = false;
-                }
+                for (int i = 0; i < lineElements.length - 1; i++){
+                    int prev = Integer.parseInt(lineElements[i]);
+                    int curr = Integer.parseInt(lineElements[i+1]);
 
-                if (Integer.parseInt(prev) > Integer.parseInt(curr)){    // if greater than
-                    if (incr){
+                    if (Math.abs(prev - curr) > 3){
                         safe = false;
                     }
-                    decr = true;
-                } else if (Integer.parseInt(prev) < Integer.parseInt(curr)) {   // if less than
-                    if (decr){
+
+                    if (prev > curr){
+                        if (incr) {
+                            safe = false;
+                        }
+                        decr = true;
+                    } else if (prev < curr){
+                        if (decr) {
+                            safe = false;
+                        }
+                        incr = true;
+                    } else {
                         safe = false;
                     }
-                    incr = true;
-                } else {  // if prev and curr are the same value
-                    safe = false;
-                }
-            }
-            if (safe){
-                passes ++;
-            }
 
-            counter++;
-        }
+                }
+                if (safe) {
+                    passes++;
+                }
+
+                counter++;
+            }
         return passes; //number of lines that pass
     }
 }
