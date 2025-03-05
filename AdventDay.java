@@ -1,22 +1,19 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class AdventDay {
     private String[] list = new String[1000];
-    private boolean incr;
-    private boolean decr;
-    private boolean safe;
     private int passes;
 
     public AdventDay(String[] array) {
         list = array;
-        safe = true;
-        incr = false;
-        decr = false;
     }
 
     public int part1() {
         for (String line : list) {
-            incr = false;
-            decr = false;
-            safe = true;
+            boolean incr = false;
+            boolean decr = false;
+            boolean safe = true;
 
             String[] lineElements = line.split(" ");
 
@@ -51,51 +48,55 @@ public class AdventDay {
     }
 
     public int part2() {
+        passes = 0;
         for (String line : list) {
-            incr = false;
-            decr = false;
-            safe = true;
-            int counter = 0;
-
-            boolean badLevel = false;
+            System.out.println("_____________");
+            boolean incr = false;
+            boolean decr = false;
+            boolean safe = true;
 
             String[] lineElements = line.split(" ");
 
-            for (int i = 0; i < lineElements.length - 1; i++){
-                int prev = Integer.parseInt(lineElements[i]);
-                int curr = Integer.parseInt(lineElements[i+1]);
+            ArrayList<String> removalList = new ArrayList<String>();
+            for (String num : lineElements){
+                removalList.add(num);
+            }
+
+            for (int i = 0; i < removalList.size() - 1; i++){
+                int prev = Integer.parseInt(removalList.get(i));
+                int curr = Integer.parseInt(removalList.get(i+1));
 
                 if (Math.abs(prev - curr) > 3){
-                    safe = false;
-                    badLevel = true;
-                }
-
-                if (prev > curr){
+                    removalList.remove(i+1);
+                    i--;
+                } else if (prev > curr){
                     if (incr) {
-                        safe = false;
-                        badLevel = true;
+                        removalList.remove(i+1);
+                        i--;
                     }
                     decr = true;
                 } else if (prev < curr){
                     if (decr) {
-                        safe = false;
-                        badLevel = true;
+                        removalList.remove(i+1);
+                        i--;
                     }
                     incr = true;
                 } else {
-                    safe = false;
-                    badLevel = true;
+                    removalList.remove(i+1);
+                    i--;
                 }
 
-                if (badLevel){
-                    counter ++;
+                System.out.println(removalList);
+
+                if (removalList.size() < lineElements.length - 1){
+                    safe = false;
                 }
 
             }
-            if (safe && (counter <= 1)) {
+            if (safe) {
                 passes++;
             }
         }
-        return passes; //number of lines that pass should be from 585 - 650 or so
+        return passes; //number of lines that pass should be from 613 - 650 or so
     }
 }
