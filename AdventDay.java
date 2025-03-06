@@ -89,10 +89,11 @@ public class AdventDay {
                 removalList.add(num);
             }
 
-            // extra case; first num shows that the list is decr/incr, but THAT is the wrong value and the others are incr/decr
+            // extra case; need condition so that values aren't removed if they are correct but still needs to consider removing the first or later indexes if they're wrong
             for (int i = 0; i < removalList.size() - 1; i++){
                 System.out.println(removalList);
                 int prev = Integer.parseInt(removalList.get(i));
+                System.out.println(prev);
                 int curr = Integer.parseInt(removalList.get(i+1));
 
                 if (Math.abs(prev - curr) > 3){ // if diff between i and i+! is greater than 2
