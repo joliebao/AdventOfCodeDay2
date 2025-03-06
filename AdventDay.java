@@ -101,16 +101,23 @@ public class AdventDay {
                     i--;
                 } else if (prev > curr){ // if i is greater than i+1
                     if (incr) {
-                        removalList.remove(i + 1);
-                        i--;
-                    } else if (decr){
-                        removalList.remove(i);
-                        i--;
+                        if (i == 0){
+                             removalList.remove(i);
+                             i--;
+                        } else {
+                            removalList.remove(i + 1);
+                            i--;
+                        }
                     }
                 } else if (prev < curr){ // if i is less than i+1
                     if (decr) {
-                        removalList.remove(i + 1);
-                        i--;
+                        if (i == 0){
+                            removalList.remove(i);
+                            i--;
+                        } else {
+                            removalList.remove(i + 1);
+                            i--;
+                        }
                     } else if (incr){
                         removalList.remove(i);
                         i--;
