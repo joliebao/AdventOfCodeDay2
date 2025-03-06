@@ -4,6 +4,8 @@ import java.util.Arrays;
 public class AdventDay {
     private String[] list = new String[1000];
     private int passes;
+    private int decrNum;
+    private int incrNum;
 
     public AdventDay(String[] array) {
         list = array;
@@ -47,46 +49,75 @@ public class AdventDay {
         return passes; //number of lines that pass
     }
 
+    private void part2Counter(String[] list){
+        decrNum = 0;
+        incrNum = 0;
+
+        for (int i = 0; i < list.length - 1; i++) {
+            int prev = Integer.parseInt(list[i]);
+            int curr = Integer.parseInt(list[i+1]);
+
+            if (prev < curr){
+                incrNum ++;
+            } else if (prev > curr){
+                decrNum ++;
+            }
+        }
+    }
+
     public int part2() {
         passes = 0;
         for (String line : list) {
-            System.out.println("_____________");
             boolean incr = false;
             boolean decr = false;
             boolean safe = true;
 
             String[] lineElements = line.split(" ");
 
+            part2Counter(lineElements);
+
+            if (decrNum > incrNum){
+                decr = true;
+            } else if (incrNum > decrNum){
+                incr = true;
+            } else {
+                safe = false;
+            }
+
             ArrayList<String> removalList = new ArrayList<String>();
             for (String num : lineElements){
                 removalList.add(num);
             }
 
+            // extra case; first num shows that the list is decr/incr, but THAT is the wrong value and the others are incr/decr
             for (int i = 0; i < removalList.size() - 1; i++){
+                System.out.println(removalList);
                 int prev = Integer.parseInt(removalList.get(i));
                 int curr = Integer.parseInt(removalList.get(i+1));
 
-                if (Math.abs(prev - curr) > 3){
+                if (Math.abs(prev - curr) > 3){ // if diff between i and i+! is greater than 2
                     removalList.remove(i+1);
                     i--;
-                } else if (prev > curr){
+                } else if (prev > curr){ // if i is greater than i+1
                     if (incr) {
-                        removalList.remove(i+1);
+                        removalList.remove(i + 1);
+                        i--;
+                    } else if (decr){
+                        removalList.remove(i);
                         i--;
                     }
-                    decr = true;
-                } else if (prev < curr){
+                } else if (prev < curr){ // if i is less than i+1
                     if (decr) {
-                        removalList.remove(i+1);
+                        removalList.remove(i + 1);
+                        i--;
+                    } else if (incr){
+                        removalList.remove(i);
                         i--;
                     }
-                    incr = true;
                 } else {
                     removalList.remove(i+1);
                     i--;
                 }
-
-                System.out.println(removalList);
 
                 if (removalList.size() < lineElements.length - 1){
                     safe = false;

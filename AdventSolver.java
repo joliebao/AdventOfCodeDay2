@@ -8,10 +8,9 @@ public class AdventSolver {
         String[] fileData = getFileData("InputFile");
         // you now have a list of Strings from the file "InputFile"
 
-        System.out.println(Arrays.toString(fileData));
         AdventDay a = new AdventDay(fileData);
-        System.out.println(a.part1());
-        System.out.println(a.part2());
+        System.out.println("Part 1: " + a.part1());
+        System.out.println("Part 2: " + a.part2());
     }
 
     public static String[] getFileData(String fileName) {
