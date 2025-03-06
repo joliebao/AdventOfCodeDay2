@@ -65,9 +65,14 @@ public class AdventDay {
         }
     }
 
+    // 378 -- need a way to remove prev and determine when to instead of curr
     public int part2() {
         passes = 0;
+        int i2 = 1;
         for (String line : list) {
+            System.out.println();
+            System.out.println("(" + i2 + ")  ______");
+            i2++;
             boolean incr = false;
             boolean decr = false;
             boolean safe = true;
@@ -96,30 +101,17 @@ public class AdventDay {
                 System.out.println(prev);
                 int curr = Integer.parseInt(removalList.get(i+1));
 
-                if (Math.abs(prev - curr) > 3){ // if diff between i and i+! is greater than 2
+                if (Math.abs(prev - curr) > 3){ // if diff between i and i+1 is greater than 2
                     removalList.remove(i+1);
                     i--;
                 } else if (prev > curr){ // if i is greater than i+1
                     if (incr) {
-                        if (i == 0){
-                             removalList.remove(i);
-                             i--;
-                        } else {
-                            removalList.remove(i + 1);
-                            i--;
-                        }
+                        removalList.remove(i + 1);
+                        i--;
                     }
                 } else if (prev < curr){ // if i is less than i+1
                     if (decr) {
-                        if (i == 0){
-                            removalList.remove(i);
-                            i--;
-                        } else {
-                            removalList.remove(i + 1);
-                            i--;
-                        }
-                    } else if (incr){
-                        removalList.remove(i);
+                        removalList.remove(i + 1);
                         i--;
                     }
                 } else {
@@ -134,6 +126,7 @@ public class AdventDay {
             }
             if (safe) {
                 passes++;
+                System.out.println("PASS");
             }
         }
         return passes; //number of lines that pass should be from 613 - 650 or so
