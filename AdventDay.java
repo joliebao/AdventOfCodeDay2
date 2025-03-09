@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -93,6 +94,7 @@ public class AdventDay {
             for (String num : lineElements){
                 removalList.add(num);
             }
+            removalList.add("0"); // to check the last index too
 
             // extra case; need condition so that values aren't removed if they are correct but still needs to consider removing the first or later indexes if they're wrong
             for (int i = 0; i < removalList.size() - 1; i++){
@@ -101,23 +103,47 @@ public class AdventDay {
                 System.out.println(prev);
                 int curr = Integer.parseInt(removalList.get(i+1));
 
-                if (Math.abs(prev - curr) > 3){ // if diff between i and i+1 is greater than 2
-                    removalList.remove(i+1);
-                    i--;
-                } else if (prev > curr){ // if i is greater than i+1
+                if (prev > curr){ // if i is greater than i+1
                     if (incr) {
-                        removalList.remove(i + 1);
-                        i--;
+                        int next = Integer.parseInt(removalList.get(i+1));
+                        if (Math.abs(curr - next) > 3) {
+                            removalList.remove(i);
+                            if (i == 1){
+                                i = 0;
+                            }
+                            i--;
+                        } else {
+                            removalList.remove(i + 1);
+                            if (i == 1){
+                                i = 0;
+                            }
+                            i--;
+                        }
                     }
                 } else if (prev < curr){ // if i is less than i+1
-                    if (decr) {
+                    int next = Integer.parseInt(removalList.get(i+1));
+                    if (Math.abs(prev - next) > 3) {
+                        removalList.remove(i);
+                        if (i == 1){
+                            i = 0;
+                        }
+                        i--;
+                    } else {
                         removalList.remove(i + 1);
+                        if (i == 1){
+                            i = 0;
+                        }
                         i--;
                     }
                 } else {
                     removalList.remove(i+1);
                     i--;
                 }
+
+//                if (Math.abs(curr - prev) > 3){
+//                    removalList.remove(i+1);
+//                    i--;
+//                }
 
                 if (removalList.size() < lineElements.length - 1){
                     safe = false;
