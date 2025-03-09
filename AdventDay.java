@@ -106,14 +106,12 @@ public class AdventDay {
                 if (prev > curr){ // if i is greater than i+1
                     if (incr) {
                         int next = Integer.parseInt(removalList.get(i+1));
-                        if (Math.abs(curr - next) > 3) {
-                            removalList.remove(i);
-                            if (i == 1){
-                                i = 0;
-                            }
-                            i--;
-                        } else {
+                        if (Math.abs(prev - next) < 3) {
                             removalList.remove(i + 1);
+                            i--;
+                            System.out.println("working");
+                        } else if (Math.abs(curr - prev) > 3) {
+                            removalList.remove(i);
                             if (i == 1){
                                 i = 0;
                             }
@@ -122,14 +120,11 @@ public class AdventDay {
                     }
                 } else if (prev < curr){ // if i is less than i+1
                     int next = Integer.parseInt(removalList.get(i+1));
-                    if (Math.abs(prev - next) > 3) {
-                        removalList.remove(i);
-                        if (i == 1){
-                            i = 0;
-                        }
-                        i--;
-                    } else {
+                    if (Math.abs(prev - next) < 3) {
                         removalList.remove(i + 1);
+                        i--;
+                    } else if (Math.abs(curr - prev) > 3) {
+                        removalList.remove(i);
                         if (i == 1){
                             i = 0;
                         }
