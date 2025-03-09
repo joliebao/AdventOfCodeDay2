@@ -87,6 +87,12 @@ public class AdventDay {
                 }
             }
 
+            if (Math.abs(lineDiff.getLast()) > 3){
+                badLevels ++;
+            } else if (lineDiff.getLast() == 0){
+                badLevels ++;
+            }
+
             if (badLevels <= 1) {
                 passes++;
                 System.out.println("PASS");
