@@ -59,15 +59,13 @@ public class AdventDay {
         return differences;
     }
 
-    private ArrayList<Integer> getDifferences(ArrayList<Integer> arr){
-        ArrayList<Integer> differences = new ArrayList<>();
-        for (int i = 0; i < arr.size() - 1; i ++){
-            int prev = arr.get(i);
-            int curr = arr.get(i+1);
-
-            differences.add(prev-curr);
+    private boolean bounds(int count, String[] arr){
+        int prev = Integer.parseInt(arr[count]);
+        int next = Integer.parseInt(arr[count + 2]);
+        if (Math.abs(prev - next) > 3) {
+            return true;
         }
-        return differences;
+        return false;
     }
 
     // 378 -- need a way to remove prev and determine when to instead of curr
@@ -86,11 +84,13 @@ public class AdventDay {
 
             System.out.println(lineDiff);
 
+
+            int counter = 0;
+
             for (int i = 0; i < lineDiff.size() - 1; i++){
                 if (Math.abs(lineDiff.get(i)) > 3){
                     badLevels ++;
-                    ArrayList<Integer> secondLineDiff = getDifferences(lineDiff);
-                    if (Math.abs(secondLineDiff.get(i)) > 3) {
+                    if (bounds(counter, lineElements)) {
                         badLevels++;
                     }
                 } else if (lineDiff.get(i) == 0){
@@ -100,6 +100,8 @@ public class AdventDay {
                 } else if (lineDiff.get(i) < 0 && lineDiff.get(i+1) > 0) {
                     badLevels++;
                 }
+
+                counter ++;
             }
 
             if (Math.abs(lineDiff.getLast()) > 3){
